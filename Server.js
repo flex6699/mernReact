@@ -9,6 +9,7 @@ app.use(express.json());
 
 //Port
 
+const PORT = process.env.PORT || 5500;
 //use cors
 
 app.use(cors());
@@ -18,10 +19,8 @@ app.use(cors());
 const TodoItemRoute = require("./route/TodoRoute");
 //MONGODB
 mongoose
-  .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@todo.bsz8mg8.mongodb.net/?retryWrites=true&w=majority`
-  )
-  .then(() => app.listen(process.env.PORT || 5500))
+  .connect(process.env.DB_CONNECT)
+  .then(() => console.log("Database Connected"))
   .catch((err) => console.log(err));
 
 app.use("/", TodoItemRoute);
